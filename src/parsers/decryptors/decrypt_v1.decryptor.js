@@ -12,7 +12,7 @@ export async function decryptSources_v1(id, name, type) {
   try {
     // 1. Fetch the sources data which contains the initial embed link
     const { data: sourcesData } = await axios.get(
-      `https://${v1_base_url}/ajax/v2/episode/sources?id=${id}`
+      `https://${v1_base_url}/ajax/episode/sources?id=${id}`
     );
     
     // 2. Extract the link from the response
