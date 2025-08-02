@@ -11,7 +11,7 @@ import { v1_base_url } from "../../utils/base_v1.js";
  */
 export async function decryptSources_v1(id, data_id, name, type) {
   try {
-    // 1. Fetch the sources data using the data_id (this was missing!)
+    // 1. Fetch the sources data using the data_id
     const { data: sourcesData } = await axios.get(
       `https://${v1_base_url}/ajax/episode/sources?id=${data_id}`
     );
@@ -24,10 +24,19 @@ export async function decryptSources_v1(id, data_id, name, type) {
       throw new Error("Missing 'link' property in sources data response");
     }
     
-    // 4. Construct the final embed URL by appending the required parameters
-    const finalEmbedUrl = `${ajaxLink}&autoPlay=1&oa=0&asi=1`;
+    // 4. Parse the existing URL to handle parameters properly
+    const url = new URL(ajaxLink);
     
-    // 5. Return the structured data
+    // 5. Add the debug parameter and other required parameters
+    url.searchParams.set('_debug', 'true');
+    url.searchParams.set('autoPlay', '1');
+    url.searchParams.set('oa', '0');
+    url.searchParams.set('asi', '1');
+    
+    // 6. Get the final URL string
+    const finalEmbedUrl = url.toString();
+    
+    // 7. Return the structured data
     return {
       id,
       data_id,
