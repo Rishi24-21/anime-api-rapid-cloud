@@ -6,7 +6,7 @@ async function extractEpisodesList(id) {
   try {
     const showId = id.split("-").pop();
     const response = await axios.get(
-      `https://${v1_base_url}/ajax/v2/episode/list/${showId}`,
+      `https://${v1_base_url}/ajax/episode/list/${showId}`,
       {
         headers: {
           "X-Requested-With": "XMLHttpRequest",
